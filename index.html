@@ -56,15 +56,15 @@
             animation: cardAppear 2s ease-out;
         }
 
-        /* Marquito Polaroid abajo a la IZQUIERDA */
+        /* Marquito Polaroid abajo a la IZQUIERDA (MÁS GRANDE) */
         .polaroid-frame {
             position: fixed;
             bottom: 30px;
             left: 30px;
             background: white;
-            padding: 10px 10px 30px 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            transform: rotate(-5deg); /* Inclinación a la izquierda */
+            padding: 12px 12px 35px 12px; /* Espacio blanco del marco */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: rotate(-5deg);
             z-index: 15;
             transition: all 0.5s ease;
             animation: cardAppear 2.5s ease-out;
@@ -76,8 +76,8 @@
         }
 
         .polaroid-frame img {
-            width: 120px; /* Tamaño del marquito */
-            height: 120px;
+            width: 180px; /* Tamaño aumentado */
+            height: 180px; /* Tamaño aumentado */
             object-fit: cover;
             display: block;
         }
@@ -150,7 +150,7 @@
 <body>
 
     <div class="polaroid-frame">
-        <img src="foto.jpg" alt="Us">
+        <img src="foto.jpg" alt="Together">
     </div>
 
     <button class="music-btn" onclick="toggleMusic()" id="mBtn">🎵</button>
@@ -177,7 +177,8 @@
 
     <script>
         const song = document.getElementById("mySong");
-        song.volume = 0.15;
+        // VOLUMEN BAJO (10%)
+        song.volume = 0.1;
 
         function updateTimers() {
             const metDate = new Date('2025-08-20T02:00:00');
