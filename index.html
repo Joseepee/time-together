@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Forever</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rose-dust: #e2b4bd;
+            --soft-white: #fffcf9;
+            --text-main: #4a4a4a;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: 'Quicksand', sans-serif;
+            /* Fondo con degradado animado */
+            background: linear-gradient(-45deg, #eee1e1, #f8edeb, #f9dbdb, #fffcf9);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Blobs decorativos de fondo */
+        .blob {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(226, 180, 189, 0.3);
+            filter: blur(80px);
+            border-radius: 50%;
+            z-index: 1;
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        /* Corazones y Partículas */
+        .heart {
+            position: fixed;
+            top: -10%;
+            font-size: 20px;
+            color: rgba(226, 180, 189, 0.5);
+            user-select: none;
+            z-index: 2;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* Tarjeta Principal */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 40px;
+            padding: 50px 30px;
+            width: 85%;
+            max-width: 450px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            z-index: 10;
+            text-align: center;
+            animation: cardAppear 2s ease-out;
+        }
+
+        @keyframes cardAppear {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.2rem;
+            color: #b5838d;
+            margin: 0 0 15px 0;
+        }
+
+        .quote {
+            font-style: italic;
+            font-weight: 300;
+            margin-bottom: 35px;
+            line-height: 1.5;
+            font-size: 1rem;
+            color: #6d6875;
+        }
+
+        .counter-section {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .label {
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 2.5px;
+            margin-bottom: 8px;
+            color: #a5a5a5;
+        }
+
+        .timer {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #b5838d;
+        }
+
+        .divider {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blob" style="top: -10%; left: -10%;"></div>
+    <div class="blob" style="bottom: -10%; right: -10%; background: rgba(255, 183, 178, 0.2);"></div>
+
+    <div class="glass-card">
+        <h1>To My Everything</h1>
+        
+        <p class="quote">
+            "Before you, I was nothing... <br> 
+            and now I'm everything with you."
+        </p>
+
+        <div class="counter-section">
+            <div class="label">The moment we met</div>
+            <div id="met-timer" class="timer">...</div>
+        </div>
+
+        <div class="divider">✦</div>
+
+        <div class="counter-section">
+            <div class="label">The day my life began</div>
+            <div id="dating-timer" class="timer">...</div>
+        </div>
+        
+        <div style="font-size: 0.8rem; margin-top: 20px; opacity: 0.5;">
+            Every second counts with you.
+        </div>
+    </div>
+
+    <script>
+        function updateTimers() {
+            // Fechas ajustadas a tus peticiones
+            const metDate = new Date('2025-08-20T02:00:00');
+            const datingDate = new Date('2025-09-07T00:00:00');
+            const now = new Date();
+
+            function formatTime(start) {
+                const diff = now - start;
+                if (diff < 0) return "Coming soon...";
+                
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const m = Math.floor((diff / (1000 * 60)) % 60);
+                const s = Math.floor((diff / 1000) % 60);
+                return `${d}d ${h}h ${m}m ${s}s`;
+            }
+
+            document.getElementById('met-timer').innerText = formatTime(metDate);
+            document.getElementById('dating-timer').innerText = formatTime(datingDate);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            // Alterna entre corazones y pequeños brillos
+            heart.innerHTML = Math.random() > 0.5 ? '❤' : '✨';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+            heart.style.opacity = Math.random() * 0.6 + 0.2;
+            heart.style.fontSize = Math.random() * 10 + 15 + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+
+        setInterval(updateTimers, 1000);
+        setInterval(createHeart, 400);
+        updateTimers();
+    </script>
+</body>
+</html>
