@@ -19,7 +19,7 @@
             justify-content: center;
             overflow: hidden;
             font-family: 'Quicksand', sans-serif;
-            /* Imagen de fondo limpia */
+            /* Imagen de fondo */
             background-image: url('background.png');
             background-size: cover;
             background-position: center;
@@ -109,7 +109,7 @@
             opacity: 0.7;
         }
 
-        /* Botón de Música Aesthetic */
+        /* Botón de Música */
         .music-btn {
             position: fixed;
             bottom: 30px;
@@ -120,99 +120,4 @@
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            cursor: pointer;
-            font-size: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-        .music-btn:hover { transform: scale(1.1); background: rgba(255, 255, 255, 0.6); }
-    </style>
-</head>
-<body>
-
-    <button class="music-btn" onclick="toggleMusic()" id="mBtn">🎵</button>
-    <audio id="mySong" loop>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
-
-    <div class="glass-card">
-        <h1>To My Everything</h1>
-        
-        <p class="quote">
-            "Before you, I was nothing... <br> 
-            and now I'm everything with you."
-        </p>
-
-        <div class="counter-section">
-            <div class="label">The moment we met</div>
-            <div id="met-timer" class="timer">...</div>
-        </div>
-
-        <div class="divider">❤</div>
-
-        <div class="counter-section">
-            <div class="label">The day my life began</div>
-            <div id="dating-timer" class="timer">...</div>
-        </div>
-        
-        <div style="font-size: 0.75rem; margin-top: 15px; opacity: 0.5;">
-            Every second counts with you.
-        </div>
-    </div>
-
-    <script>
-        // Lógica de los Contadores
-        function updateTimers() {
-            const metDate = new Date('2025-08-20T02:00:00');
-            const datingDate = new Date('2025-09-07T00:00:00');
-            const now = new Date();
-
-            function formatTime(start) {
-                const diff = now - start;
-                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                const m = Math.floor((diff / (1000 * 60)) % 60);
-                const s = Math.floor((diff / 1000) % 60);
-                return `${d}d ${h}h ${m}m ${s}s`;
-            }
-
-            document.getElementById('met-timer').innerText = formatTime(metDate);
-            document.getElementById('dating-timer').innerText = formatTime(datingDate);
-        }
-
-        // Lógica de la Música
-        function toggleMusic() {
-            const song = document.getElementById("mySong");
-            const btn = document.getElementById("mBtn");
-            if (song.paused) {
-                song.play();
-                btn.innerHTML = "⏸️";
-            } else {
-                song.pause();
-                btn.innerHTML = "🎵";
-            }
-        }
-
-        // Lógica de Corazones
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = Math.random() > 0.5 ? '❤' : '✨';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
-            heart.style.opacity = Math.random() * 0.5 + 0.2;
-            heart.style.fontSize = Math.random() * 10 + 15 + 'px';
-            document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 6000);
-        }
-
-        setInterval(updateTimers, 1000);
-        setInterval(createHeart, 500);
-        updateTimers();
-    </script>
-</body>
-</html>
+            border: 1px solid rgba(25
