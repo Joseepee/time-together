@@ -20,33 +20,12 @@
             justify-content: center;
             overflow: hidden;
             font-family: 'Quicksand', sans-serif;
-            /* Fondo con degradado animado */
-            background: linear-gradient(-45deg, #eee1e1, #f8edeb, #f9dbdb, #fffcf9);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Blobs decorativos de fondo */
-        .blob {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: rgba(226, 180, 189, 0.3);
-            filter: blur(80px);
-            border-radius: 50%;
-            z-index: 1;
-            animation: move 20s infinite alternate;
-        }
-
-        @keyframes move {
-            from { transform: translate(-10%, -10%); }
-            to { transform: translate(20%, 20%); }
+            
+            /* ESTO PONE TU IMAGEN LIMPIA DE FONDO */
+            background-image: url('background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         /* Corazones y Partículas */
@@ -64,20 +43,22 @@
             to { transform: translateY(110vh) rotate(360deg); }
         }
 
-        /* Tarjeta Principal */
+        /* Tarjeta Principal ajustada para que encaje en el marco de la foto */
         .glass-card {
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.35); /* Más transparente para que se vea el fondo */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 40px;
-            padding: 50px 30px;
+            padding: 40px 30px;
             width: 85%;
-            max-width: 450px;
+            max-width: 420px;
             box-shadow: 0 15px 45px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             z-index: 10;
             text-align: center;
             animation: cardAppear 2s ease-out;
+            /* Bajamos un poco la tarjeta para centrarla en el marco visual */
+            margin-top: 15px; 
         }
 
         @keyframes cardAppear {
@@ -87,52 +68,52 @@
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 3.2rem;
+            font-size: 3rem;
             color: #b5838d;
-            margin: 0 0 15px 0;
+            margin: 0 0 10px 0;
         }
 
         .quote {
             font-style: italic;
             font-weight: 300;
-            margin-bottom: 35px;
-            line-height: 1.5;
-            font-size: 1rem;
-            color: #6d6875;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            font-size: 0.95rem;
+            color: #4a4a4a;
         }
 
         .counter-section {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.25);
             padding: 15px;
             border-radius: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .label {
             text-transform: uppercase;
-            font-size: 0.65rem;
-            letter-spacing: 2.5px;
-            margin-bottom: 8px;
-            color: #a5a5a5;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            color: #7d7d7d;
+            font-weight: 600;
         }
 
         .timer {
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             font-weight: 500;
-            color: #b5838d;
+            color: #4a4a4a;
         }
 
         .divider {
             font-size: 1.2rem;
-            margin: 10px 0;
+            margin: 5px 0;
             opacity: 0.5;
+            color: #e5989b;
         }
     </style>
 </head>
 <body>
-
-    <div class="blob" style="top: -10%; left: -10%;"></div>
-    <div class="blob" style="bottom: -10%; right: -10%; background: rgba(255, 183, 178, 0.2);"></div>
 
     <div class="glass-card">
         <h1>To My Everything</h1>
@@ -147,21 +128,20 @@
             <div id="met-timer" class="timer">...</div>
         </div>
 
-        <div class="divider">✦</div>
+        <div class="divider">❤</div>
 
         <div class="counter-section">
             <div class="label">The day my life began</div>
             <div id="dating-timer" class="timer">...</div>
         </div>
         
-        <div style="font-size: 0.8rem; margin-top: 20px; opacity: 0.5;">
+        <div style="font-size: 0.75rem; margin-top: 15px; opacity: 0.6; color: #b5838d;">
             Every second counts with you.
         </div>
     </div>
 
     <script>
         function updateTimers() {
-            // Fechas ajustadas a tus peticiones
             const metDate = new Date('2025-08-20T02:00:00');
             const datingDate = new Date('2025-09-07T00:00:00');
             const now = new Date();
@@ -184,7 +164,6 @@
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            // Alterna entre corazones y pequeños brillos
             heart.innerHTML = Math.random() > 0.5 ? '❤' : '✨';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = Math.random() * 3 + 4 + 's';
