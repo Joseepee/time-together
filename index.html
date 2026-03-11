@@ -8,7 +8,6 @@
     <style>
         :root {
             --rose-dust: #e2b4bd;
-            --soft-white: #fffcf9;
             --text-main: #4a4a4a;
         }
 
@@ -20,15 +19,14 @@
             justify-content: center;
             overflow: hidden;
             font-family: 'Quicksand', sans-serif;
-            
-            /* ESTO PONE TU IMAGEN LIMPIA DE FONDO */
+            /* Imagen de fondo limpia */
             background-image: url('background.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
 
-        /* Corazones y Partículas */
+        /* Corazones flotantes */
         .heart {
             position: fixed;
             top: -10%;
@@ -43,13 +41,13 @@
             to { transform: translateY(110vh) rotate(360deg); }
         }
 
-        /* Tarjeta Principal ajustada para que encaje en el marco de la foto */
+        /* Tarjeta de cristal (Glassmorphism) */
         .glass-card {
-            background: rgba(255, 255, 255, 0.35); /* Más transparente para que se vea el fondo */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 40px;
-            padding: 40px 30px;
+            padding: 45px 30px;
             width: 85%;
             max-width: 420px;
             box-shadow: 0 15px 45px rgba(0, 0, 0, 0.05);
@@ -57,8 +55,7 @@
             z-index: 10;
             text-align: center;
             animation: cardAppear 2s ease-out;
-            /* Bajamos un poco la tarjeta para centrarla en el marco visual */
-            margin-top: 15px; 
+            margin-top: 20px;
         }
 
         @keyframes cardAppear {
@@ -68,7 +65,7 @@
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 3rem;
+            font-size: 3.2rem;
             color: #b5838d;
             margin: 0 0 10px 0;
         }
@@ -77,13 +74,13 @@
             font-style: italic;
             font-weight: 300;
             margin-bottom: 30px;
-            line-height: 1.4;
+            line-height: 1.5;
             font-size: 0.95rem;
-            color: #4a4a4a;
+            color: var(--text-main);
         }
 
         .counter-section {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.2);
             padding: 15px;
             border-radius: 20px;
             margin-bottom: 15px;
@@ -95,25 +92,52 @@
             font-size: 0.6rem;
             letter-spacing: 2px;
             margin-bottom: 5px;
-            color: #7d7d7d;
+            color: #6d6875;
             font-weight: 600;
         }
 
         .timer {
             font-size: 1.25rem;
             font-weight: 500;
-            color: #4a4a4a;
+            color: var(--text-main);
         }
 
         .divider {
             font-size: 1.2rem;
-            margin: 5px 0;
-            opacity: 0.5;
+            margin: 8px 0;
             color: #e5989b;
+            opacity: 0.7;
         }
+
+        /* Botón de Música Aesthetic */
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .music-btn:hover { transform: scale(1.1); background: rgba(255, 255, 255, 0.6); }
     </style>
 </head>
 <body>
+
+    <button class="music-btn" onclick="toggleMusic()" id="mBtn">🎵</button>
+    <audio id="mySong" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="glass-card">
         <h1>To My Everything</h1>
@@ -135,12 +159,13 @@
             <div id="dating-timer" class="timer">...</div>
         </div>
         
-        <div style="font-size: 0.75rem; margin-top: 15px; opacity: 0.6; color: #b5838d;">
+        <div style="font-size: 0.75rem; margin-top: 15px; opacity: 0.5;">
             Every second counts with you.
         </div>
     </div>
 
     <script>
+        // Lógica de los Contadores
         function updateTimers() {
             const metDate = new Date('2025-08-20T02:00:00');
             const datingDate = new Date('2025-09-07T00:00:00');
@@ -148,8 +173,6 @@
 
             function formatTime(start) {
                 const diff = now - start;
-                if (diff < 0) return "Coming soon...";
-                
                 const d = Math.floor(diff / (1000 * 60 * 60 * 24));
                 const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
                 const m = Math.floor((diff / (1000 * 60)) % 60);
@@ -161,21 +184,34 @@
             document.getElementById('dating-timer').innerText = formatTime(datingDate);
         }
 
+        // Lógica de la Música
+        function toggleMusic() {
+            const song = document.getElementById("mySong");
+            const btn = document.getElementById("mBtn");
+            if (song.paused) {
+                song.play();
+                btn.innerHTML = "⏸️";
+            } else {
+                song.pause();
+                btn.innerHTML = "🎵";
+            }
+        }
+
+        // Lógica de Corazones
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
             heart.innerHTML = Math.random() > 0.5 ? '❤' : '✨';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = Math.random() * 3 + 4 + 's';
-            heart.style.opacity = Math.random() * 0.6 + 0.2;
+            heart.style.opacity = Math.random() * 0.5 + 0.2;
             heart.style.fontSize = Math.random() * 10 + 15 + 'px';
             document.body.appendChild(heart);
-
             setTimeout(() => { heart.remove(); }, 6000);
         }
 
         setInterval(updateTimers, 1000);
-        setInterval(createHeart, 400);
+        setInterval(createHeart, 500);
         updateTimers();
     </script>
 </body>
