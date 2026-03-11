@@ -25,19 +25,19 @@
             background-repeat: no-repeat;
         }
 
-        /* Corazones flotantes */
+        /* Corazones y Partículas MÁS GRANDES */
         .heart {
             position: fixed;
-            top: -10%;
-            font-size: 20px;
-            color: rgba(226, 180, 189, 0.5);
+            top: -15%;
+            font-size: 40px; /* Tamaño aumentado */
+            color: rgba(226, 180, 189, 0.6);
             user-select: none;
             z-index: 2;
             animation: fall linear forwards;
         }
 
         @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
+            to { transform: translateY(115vh) rotate(360deg); }
         }
 
         /* Tarjeta de cristal central */
@@ -56,14 +56,14 @@
             animation: cardAppear 2s ease-out;
         }
 
-        /* Marquito Polaroid abajo a la IZQUIERDA (MÁS GRANDE) */
+        /* Marquito Polaroid abajo a la IZQUIERDA (MÁS GRANDE x2.5) */
         .polaroid-frame {
             position: fixed;
-            bottom: 30px;
-            left: 30px;
+            bottom: 40px;
+            left: 40px;
             background: white;
-            padding: 12px 12px 35px 12px; /* Espacio blanco del marco */
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            padding: 15px 15px 50px 15px; /* Espacio inferior más grande estilo polaroid real */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
             transform: rotate(-5deg);
             z-index: 15;
             transition: all 0.5s ease;
@@ -71,13 +71,13 @@
         }
 
         .polaroid-frame:hover {
-            transform: rotate(0deg) scale(1.05);
+            transform: rotate(0deg) scale(1.02);
             z-index: 100;
         }
 
         .polaroid-frame img {
-            width: 180px; /* Tamaño aumentado */
-            height: 180px; /* Tamaño aumentado */
+            width: 300px; /* Tamaño x2.5 aproximado */
+            height: 300px;
             object-fit: cover;
             display: block;
         }
@@ -142,7 +142,7 @@
         }
 
         @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(30px) rotate(-5deg); }
+            from { opacity: 0; transform: translateY(40px) rotate(-5deg); }
             to { opacity: 1; transform: translateY(0) rotate(-5deg); }
         }
     </style>
@@ -150,7 +150,7 @@
 <body>
 
     <div class="polaroid-frame">
-        <img src="foto.jpg" alt="Together">
+        <img src="foto.jpg" alt="Us">
     </div>
 
     <button class="music-btn" onclick="toggleMusic()" id="mBtn">🎵</button>
@@ -177,8 +177,7 @@
 
     <script>
         const song = document.getElementById("mySong");
-        // VOLUMEN BAJO (10%)
-        song.volume = 0.1;
+        song.volume = 0.1; // Volumen bajo
 
         function updateTimers() {
             const metDate = new Date('2025-08-20T02:00:00');
@@ -206,16 +205,20 @@
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
+            // Alterna entre corazón y brillo grande
             heart.innerHTML = Math.random() > 0.5 ? '❤' : '✨';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
-            heart.style.opacity = Math.random() * 0.5 + 0.2;
+            heart.style.animationDuration = Math.random() * 3 + 5 + 's';
+            heart.style.opacity = Math.random() * 0.6 + 0.3;
+            // Tamaño aleatorio para que no sean todos iguales de gigantes
+            const size = Math.random() * 20 + 30; 
+            heart.style.fontSize = size + 'px';
             document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 6000);
+            setTimeout(() => { heart.remove(); }, 7000);
         }
 
         setInterval(updateTimers, 1000);
-        setInterval(createHeart, 500);
+        setInterval(createHeart, 600); // Aparecen un poco más lento para no saturar
         updateTimers();
     </script>
 </body>
